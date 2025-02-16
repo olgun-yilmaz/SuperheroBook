@@ -1,6 +1,7 @@
 package com.olgunyilmaz.superherobook
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,9 +15,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 
 @Composable
-fun SuperheroList(superheros: List<Superhero>) {
+fun SuperheroList(superheros: List<Superhero>, navController: NavController) {
     LazyColumn(
         contentPadding = PaddingValues(5.dp),
         modifier = Modifier
@@ -24,18 +26,23 @@ fun SuperheroList(superheros: List<Superhero>) {
             .background(color = MaterialTheme.colorScheme.primaryContainer)
     ) {
         items(superheros){
-            SuperheroRow(it)
+            SuperheroRow(it, navController)
         }
 
     }
 }
 
 @Composable
-fun SuperheroRow(superhero: Superhero) {
+fun SuperheroRow(superhero: Superhero, navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = MaterialTheme.colorScheme.primaryContainer)
+            .clickable {
+                navController.navigate(
+                    "details_screen" ///$superhero
+                )
+            }
     ) {
         Text(
             superhero.name,

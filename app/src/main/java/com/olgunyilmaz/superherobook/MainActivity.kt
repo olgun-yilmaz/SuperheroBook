@@ -52,7 +52,11 @@ class MainActivity : ComponentActivity() {
 
                             composable("list_screen") {
                                 fetchData(10)
-                                SuperheroList(superheros = superheroList)
+                                SuperheroList(superheros = superheroList, navController =  navController)
+                            }
+
+                            composable("details_screen"){
+                                DetailsScreen(superhero = Superhero("Spiderman", "Marvel", R.drawable.spiderman))
                             }
 
                         }
