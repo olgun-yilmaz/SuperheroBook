@@ -28,6 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.olgunyilmaz.superherobook.ui.theme.SuperheroBookTheme
 
 class MainActivity : ComponentActivity() {
@@ -38,23 +41,37 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
+
+            val navController = rememberNavController()
+
             SuperheroBookTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(Modifier.padding(innerPadding)) {
-                        //SuperheroRow()
+                        NavHost(navController = navController,
+                            startDestination = "list_screen") {
+
+                            composable("list_screen") {
+                                fetchData(10)
+                                SuperheroList(superheros = superheroList)
+                            }
+
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun fetchData() {
-        createSuperhero("Superman", "DC", R.drawable.superman)
-        createSuperhero("Batman", "DC", R.drawable.batman)
-        createSuperhero("Ironman", "Marvel", R.drawable.ironman)
-        createSuperhero("Spiderman", "Marvel", R.drawable.spiderman)
-        createSuperhero("The Joker", "DC", R.drawable.the_joker)
-        createSuperhero("Deadpool", "Marvel", R.drawable.deadpool)
+    private fun fetchData(count : Int = 0) {
+        for (i in 0..count){
+            createSuperhero("Superman", "DC", R.drawable.superman)
+            createSuperhero("Batman", "DC", R.drawable.batman)
+            createSuperhero("Ironman", "Marvel", R.drawable.ironman)
+            createSuperhero("Spiderman", "Marvel", R.drawable.spiderman)
+            createSuperhero("The Joker", "DC", R.drawable.the_joker)
+            createSuperhero("Deadpool", "Marvel", R.drawable.deadpool)
+        }
+
     }
 
     private fun createSuperhero(name: String, universe: String, imageRes: Int) {
