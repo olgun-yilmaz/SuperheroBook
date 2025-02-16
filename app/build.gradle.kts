@@ -60,4 +60,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation ("com.google.code.gson:gson:2.12.1")
 }
